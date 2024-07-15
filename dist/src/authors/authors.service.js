@@ -36,6 +36,19 @@ let AuthorsService = class AuthorsService {
             throw error;
         }
     }
+    async updateById(id, authorData) {
+        try {
+            return await this.prismaService.author.update({
+                where: { id },
+                data: authorData,
+            });
+        }
+        catch (error) {
+            if (error.code === 'P2002')
+                throw new common_1.ConflictException('Name is already taken');
+            throw error;
+        }
+    }
 };
 exports.AuthorsService = AuthorsService;
 exports.AuthorsService = AuthorsService = __decorate([

@@ -15,7 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorsController = void 0;
 const common_1 = require("@nestjs/common");
 const authors_service_1 = require("./authors.service");
-const create_authors_dto_1 = require("./dtos/create-authors.dto");
+const create_author_dto_1 = require("./dtos/create-author.dto");
+const update_author_dto_1 = require("./dtos/update-author.dto");
 let AuthorsController = class AuthorsController {
     constructor(authorsService) {
         this.authorsService = authorsService;
@@ -31,6 +32,12 @@ let AuthorsController = class AuthorsController {
     }
     create(authorData) {
         return this.authorsService.create(authorData);
+    }
+    async update(id, authorData) {
+        if (!(await this.authorsService.getById(id)))
+            throw new common_1.NotFoundException('Author not found');
+        await this.authorsService.updateById(id, authorData);
+        return { success: true };
     }
 };
 exports.AuthorsController = AuthorsController;
@@ -51,9 +58,17 @@ __decorate([
     (0, common_1.Post)('/'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_authors_dto_1.CreateAuthorDTO]),
+    __metadata("design:paramtypes", [create_author_dto_1.CreateAuthorDTO]),
     __metadata("design:returntype", void 0)
 ], AuthorsController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)('/:id'),
+    __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_author_dto_1.UpdateAuthorDTO]),
+    __metadata("design:returntype", Promise)
+], AuthorsController.prototype, "update", null);
 exports.AuthorsController = AuthorsController = __decorate([
     (0, common_1.Controller)('authors'),
     __metadata("design:paramtypes", [authors_service_1.AuthorsService])
