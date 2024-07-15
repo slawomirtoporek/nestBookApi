@@ -39,6 +39,12 @@ let AuthorsController = class AuthorsController {
         await this.authorsService.updateById(id, authorData);
         return { success: true };
     }
+    async deleteById(id) {
+        if (!(await this.authorsService.getById(id)))
+            throw new common_1.NotFoundException('Author not found');
+        await this.authorsService.deleteById(id);
+        return { success: true };
+    }
 };
 exports.AuthorsController = AuthorsController;
 __decorate([
@@ -69,6 +75,13 @@ __decorate([
     __metadata("design:paramtypes", [String, update_author_dto_1.UpdateAuthorDTO]),
     __metadata("design:returntype", Promise)
 ], AuthorsController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthorsController.prototype, "deleteById", null);
 exports.AuthorsController = AuthorsController = __decorate([
     (0, common_1.Controller)('authors'),
     __metadata("design:paramtypes", [authors_service_1.AuthorsService])

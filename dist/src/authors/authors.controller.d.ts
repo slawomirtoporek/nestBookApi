@@ -18,4 +18,7 @@ export declare class AuthorsController {
     update(id: string, authorData: UpdateAuthorDTO): Promise<{
         success: boolean;
     }>;
+    deleteById(id: string): Promise<{
+        success: boolean;
+    }>;
 }
