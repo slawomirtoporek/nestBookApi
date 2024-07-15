@@ -5,4 +5,5 @@ export declare class AuthorsService {
     constructor(prismaService: PrismaService);
     getAll(): Promise<Author[]>;
     getById(id: Author['id']): Promise<Author | null>;
+    create(authorData: Omit<Author, 'id'>): Promise<Author>;
 }

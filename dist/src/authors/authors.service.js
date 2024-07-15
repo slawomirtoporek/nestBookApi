@@ -24,6 +24,18 @@ let AuthorsService = class AuthorsService {
             where: { id },
         });
     }
+    async create(authorData) {
+        try {
+            return this.prismaService.author.create({
+                data: authorData,
+            });
+        }
+        catch (error) {
+            if (error.code === 'P2002')
+                throw new common_1.ConflictException('Name is already taken');
+            throw error;
+        }
+    }
 };
 exports.AuthorsService = AuthorsService;
 exports.AuthorsService = AuthorsService = __decorate([

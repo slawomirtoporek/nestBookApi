@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorsController = void 0;
 const common_1 = require("@nestjs/common");
 const authors_service_1 = require("./authors.service");
+const create_authors_dto_1 = require("./dtos/create-authors.dto");
 let AuthorsController = class AuthorsController {
     constructor(authorsService) {
         this.authorsService = authorsService;
@@ -27,6 +28,9 @@ let AuthorsController = class AuthorsController {
         if (!author)
             throw new common_1.NotFoundException('Author not found');
         return author;
+    }
+    create(authorData) {
+        return this.authorsService.create(authorData);
     }
 };
 exports.AuthorsController = AuthorsController;
@@ -43,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthorsController.prototype, "getById", null);
+__decorate([
+    (0, common_1.Post)('/'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_authors_dto_1.CreateAuthorDTO]),
+    __metadata("design:returntype", void 0)
+], AuthorsController.prototype, "create", null);
 exports.AuthorsController = AuthorsController = __decorate([
     (0, common_1.Controller)('authors'),
     __metadata("design:paramtypes", [authors_service_1.AuthorsService])

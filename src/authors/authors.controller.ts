@@ -4,8 +4,11 @@ import {
   NotFoundException,
   Get,
   Param,
+  Body,
+  Post,
 } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
+import { CreateAuthorDTO } from './dtos/create-authors.dto';
 
 @Controller('authors')
 export class AuthorsController {
@@ -23,5 +26,10 @@ export class AuthorsController {
     if (!author) throw new NotFoundException('Author not found');
 
     return author;
+  }
+
+  @Post('/')
+  create(@Body() authorData: CreateAuthorDTO) {
+    return this.authorsService.create(authorData);
   }
 }
