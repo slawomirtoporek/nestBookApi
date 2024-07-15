@@ -19,6 +19,11 @@ let AuthorsService = class AuthorsService {
     getAll() {
         return this.prismaService.author.findMany();
     }
+    getById(id) {
+        return this.prismaService.author.findUnique({
+            where: { id },
+        });
+    }
 };
 exports.AuthorsService = AuthorsService;
 exports.AuthorsService = AuthorsService = __decorate([
