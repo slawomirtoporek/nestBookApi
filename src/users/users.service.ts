@@ -9,4 +9,10 @@ export class UsersService {
   public getAll(): Promise<User[]> {
     return this.prismaService.user.findMany();
   }
+
+  public getById(id: User['id']): Promise<User | null> {
+    return this.prismaService.user.findUnique({
+      where: { id },
+    });
+  }
 }
