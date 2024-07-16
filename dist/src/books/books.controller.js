@@ -16,6 +16,7 @@ exports.BooksController = void 0;
 const common_1 = require("@nestjs/common");
 const books_service_1 = require("./books.service");
 const create_book_dto_1 = require("./dtos/create-book.dto");
+const update_book_dto_1 = require("./dtos/update-book.dto");
 let BooksController = class BooksController {
     constructor(booksService) {
         this.booksService = booksService;
@@ -31,6 +32,12 @@ let BooksController = class BooksController {
     }
     create(bookData) {
         return this.booksService.create(bookData);
+    }
+    async update(id, bookData) {
+        if (!(await this.booksService.getById(id)))
+            throw new common_1.NotFoundException('Book not found');
+        await this.booksService.updateById(id, bookData);
+        return { success: true };
     }
     async deleteById(id) {
         if (!(await this.booksService.getById(id)))
@@ -60,6 +67,14 @@ __decorate([
     __metadata("design:paramtypes", [create_book_dto_1.CreateBookDTO]),
     __metadata("design:returntype", void 0)
 ], BooksController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)('/:id'),
+    __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_book_dto_1.UpdateBookDTO]),
+    __metadata("design:returntype", Promise)
+], BooksController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
     __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),

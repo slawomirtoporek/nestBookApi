@@ -45,6 +45,30 @@ export class BooksService {
     }
   }
 
+  public async updateById(
+    id: Book['id'],
+    bookData: Omit<Book, 'id' | 'createdAt' | 'updatedAt'>,
+  ): Promise<Book> {
+    try {
+      const { authorId, ...otherData } = bookData;
+      return await this.prismaService.book.update({
+        where: { id },
+        data: {
+          ...otherData,
+          author: {
+            connect: { id: authorId },
+          },
+        },
+      });
+    } catch (error) {
+      if (error.code === 'P2025')
+        throw new BadRequestException("Author doesn't exist");
+      if (error.code === 'P2002')
+        throw new ConflictException('Title is already taken');
+      throw error;
+    }
+  }
+
   public deleteById(id: Book['id']): Promise<Book> {
     return this.prismaService.book.delete({
       where: { id },
