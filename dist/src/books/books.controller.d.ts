@@ -22,4 +22,7 @@ export declare class BooksController {
         updatedAt: Date;
         authorId: string;
     }>;
+    deleteById(id: string): Promise<{
+        success: boolean;
+    }>;
 }

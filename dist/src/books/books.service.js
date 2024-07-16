@@ -55,6 +55,11 @@ let BooksService = class BooksService {
             throw error;
         }
     }
+    deleteById(id) {
+        return this.prismaService.book.delete({
+            where: { id },
+        });
+    }
 };
 exports.BooksService = BooksService;
 exports.BooksService = BooksService = __decorate([

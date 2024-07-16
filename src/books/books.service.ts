@@ -44,4 +44,10 @@ export class BooksService {
       throw error;
     }
   }
+
+  public deleteById(id: Book['id']): Promise<Book> {
+    return this.prismaService.book.delete({
+      where: { id },
+    });
+  }
 }

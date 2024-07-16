@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Body,
+  Delete,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDTO } from './dtos/create-book.dto';
@@ -31,5 +32,13 @@ export class BooksController {
   @Post('/')
   create(@Body() bookData: CreateBookDTO) {
     return this.booksService.create(bookData);
+  }
+
+  @Delete('/:id')
+  async deleteById(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!(await this.booksService.getById(id)))
+      throw new NotFoundException('Book not found');
+    await this.booksService.deleteById(id);
+    return { success: true };
   }
 }

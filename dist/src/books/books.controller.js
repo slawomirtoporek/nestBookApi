@@ -32,6 +32,12 @@ let BooksController = class BooksController {
     create(bookData) {
         return this.booksService.create(bookData);
     }
+    async deleteById(id) {
+        if (!(await this.booksService.getById(id)))
+            throw new common_1.NotFoundException('Book not found');
+        await this.booksService.deleteById(id);
+        return { success: true };
+    }
 };
 exports.BooksController = BooksController;
 __decorate([
@@ -54,6 +60,13 @@ __decorate([
     __metadata("design:paramtypes", [create_book_dto_1.CreateBookDTO]),
     __metadata("design:returntype", void 0)
 ], BooksController.prototype, "create", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], BooksController.prototype, "deleteById", null);
 exports.BooksController = BooksController = __decorate([
     (0, common_1.Controller)('books'),
     __metadata("design:paramtypes", [books_service_1.BooksService])
