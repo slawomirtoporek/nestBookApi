@@ -4,8 +4,11 @@ import {
   NotFoundException,
   Get,
   Param,
+  Post,
+  Body,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
+import { CreateBookDTO } from './dtos/create-book.dto';
 
 @Controller('books')
 export class BooksController {
@@ -23,5 +26,10 @@ export class BooksController {
     if (!book) throw new NotFoundException('404 Not Found');
 
     return book;
+  }
+
+  @Post('/')
+  create(@Body() bookData: CreateBookDTO) {
+    return this.booksService.create(bookData);
   }
 }

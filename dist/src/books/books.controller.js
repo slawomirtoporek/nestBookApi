@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BooksController = void 0;
 const common_1 = require("@nestjs/common");
 const books_service_1 = require("./books.service");
+const create_book_dto_1 = require("./dtos/create-book.dto");
 let BooksController = class BooksController {
     constructor(booksService) {
         this.booksService = booksService;
@@ -27,6 +28,9 @@ let BooksController = class BooksController {
         if (!book)
             throw new common_1.NotFoundException('404 Not Found');
         return book;
+    }
+    create(bookData) {
+        return this.booksService.create(bookData);
     }
 };
 exports.BooksController = BooksController;
@@ -43,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BooksController.prototype, "getById", null);
+__decorate([
+    (0, common_1.Post)('/'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_book_dto_1.CreateBookDTO]),
+    __metadata("design:returntype", void 0)
+], BooksController.prototype, "create", null);
 exports.BooksController = BooksController = __decorate([
     (0, common_1.Controller)('books'),
     __metadata("design:paramtypes", [books_service_1.BooksService])

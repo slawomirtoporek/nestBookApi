@@ -5,4 +5,5 @@ export declare class BooksService {
     constructor(prismaService: PrismaService);
     getAll(): Promise<Book[]>;
     getById(id: Book['id']): Promise<Book | null>;
+    create(bookData: Omit<Book, 'id' | 'createdAt' | 'updatedAt'>): Promise<Book>;
 }
