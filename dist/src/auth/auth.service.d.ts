@@ -8,4 +8,9 @@ export declare class AuthService {
         email: string;
         role: import(".prisma/client").$Enums.Role;
     }>;
+    validateUser(email: string, password: string): Promise<{
+        id: string;
+        email: string;
+        role: import(".prisma/client").$Enums.Role;
+    }>;
 }
