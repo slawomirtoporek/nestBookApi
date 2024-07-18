@@ -22,7 +22,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BooksService = void 0;
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../shared/services/prisma.service");
+const prisma_service_1 = require("../prisma/prisma.service");
 let BooksService = class BooksService {
     constructor(prismaService) {
         this.prismaService = prismaService;

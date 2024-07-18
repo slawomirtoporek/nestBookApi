@@ -1,4 +1,4 @@
-import { PrismaService } from 'src/shared/services/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { Author } from '@prisma/client';
 export declare class AuthorsService {
     private prismaService;

@@ -1,5 +1,5 @@
 import { Book } from '@prisma/client';
-import { PrismaService } from 'src/shared/services/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 export declare class BooksService {
     private prismaService;
     constructor(prismaService: PrismaService);

@@ -6,19 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BooksModule = void 0;
+exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
-const books_controller_1 = require("./books.controller");
-const books_service_1 = require("./books.service");
-const prisma_module_1 = require("../prisma/prisma.module");
-let BooksModule = class BooksModule {
+const auth_controller_1 = require("./auth.controller");
+const auth_service_1 = require("./auth.service");
+const users_module_1 = require("../users/users.module");
+let AuthModule = class AuthModule {
 };
-exports.BooksModule = BooksModule;
-exports.BooksModule = BooksModule = __decorate([
+exports.AuthModule = AuthModule;
+exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        controllers: [books_controller_1.BooksController],
-        providers: [books_service_1.BooksService],
-        imports: [prisma_module_1.PrismaModule],
+        controllers: [auth_controller_1.AuthController],
+        providers: [auth_service_1.AuthService],
+        imports: [users_module_1.UsersModule],
     })
-], BooksModule);
-//# sourceMappingURL=books.module.js.map
+], AuthModule);
+//# sourceMappingURL=auth.module.js.map
