@@ -24,8 +24,12 @@ let AuthController = class AuthController {
     register(registrationData) {
         return this.authService.register(registrationData);
     }
-    async login(req) {
-        return req.user;
+    async login(req, res) {
+        const tokens = await this.authService.createSession(req.user);
+        res.cookie('auth', tokens, { httpOnly: true });
+        res.send({
+            message: 'success',
+        });
     }
 };
 exports.AuthController = AuthController;
@@ -38,10 +42,11 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
-    (0, common_1.Post)('/login'),
+    (0, common_1.Post)('login'),
     __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Response)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
