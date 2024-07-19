@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const authors_service_1 = require("./authors.service");
 const create_author_dto_1 = require("./dtos/create-author.dto");
 const update_author_dto_1 = require("./dtos/update-author.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let AuthorsController = class AuthorsController {
     constructor(authorsService) {
         this.authorsService = authorsService;
@@ -62,6 +63,7 @@ __decorate([
 ], AuthorsController.prototype, "getById", null);
 __decorate([
     (0, common_1.Post)('/'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_author_dto_1.CreateAuthorDTO]),
@@ -69,6 +71,7 @@ __decorate([
 ], AuthorsController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)('/:id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -77,6 +80,7 @@ __decorate([
 ], AuthorsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

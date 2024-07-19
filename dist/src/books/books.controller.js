@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const books_service_1 = require("./books.service");
 const create_book_dto_1 = require("./dtos/create-book.dto");
 const update_book_dto_1 = require("./dtos/update-book.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let BooksController = class BooksController {
     constructor(booksService) {
         this.booksService = booksService;
@@ -62,6 +63,7 @@ __decorate([
 ], BooksController.prototype, "getById", null);
 __decorate([
     (0, common_1.Post)('/'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_book_dto_1.CreateBookDTO]),
@@ -69,6 +71,7 @@ __decorate([
 ], BooksController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)('/:id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -77,6 +80,7 @@ __decorate([
 ], BooksController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id', new common_1.ParseUUIDPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
