@@ -4,7 +4,7 @@ import {
   Post,
   UseGuards,
   Request,
-  Response
+  Response,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDTO } from './dtos/register.dto';
