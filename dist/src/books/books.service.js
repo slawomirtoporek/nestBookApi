@@ -78,6 +78,27 @@ let BooksService = class BooksService {
             where: { id },
         });
     }
+    async createUserOnBook(bookId, userId) {
+        try {
+            return await this.prismaService.book.update({
+                where: { id: bookId },
+                data: {
+                    users: {
+                        create: {
+                            user: {
+                                connect: { id: userId },
+                            },
+                        },
+                    },
+                },
+            });
+        }
+        catch (error) {
+            if (error.code === 'P2025')
+                throw new common_1.BadRequestException("User or book doesn't exist");
+            throw error;
+        }
+    }
 };
 exports.BooksService = BooksService;
 exports.BooksService = BooksService = __decorate([

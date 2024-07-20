@@ -3,7 +3,7 @@ import {
   BadRequestException,
   ConflictException,
 } from '@nestjs/common';
-import { Book } from '@prisma/client';
+import { Book, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -73,5 +73,29 @@ export class BooksService {
     return this.prismaService.book.delete({
       where: { id },
     });
+  }
+
+  public async createUserOnBook(
+    bookId: Book['id'],
+    userId: User['id'],
+  ): Promise<Book> {
+    try {
+      return await this.prismaService.book.update({
+        where: { id: bookId },
+        data: {
+          users: {
+            create: {
+              user: {
+                connect: { id: userId },
+              },
+            },
+          },
+        },
+      });
+    } catch (error) {
+      if (error.code === 'P2025')
+        throw new BadRequestException("User or book doesn't exist");
+      throw error;
+    }
   }
 }

@@ -46,6 +46,9 @@ let BooksController = class BooksController {
         await this.booksService.deleteById(id);
         return { success: true };
     }
+    createUserOnBook(bookId, userId) {
+        this.booksService.createUserOnBook(bookId, userId);
+    }
 };
 exports.BooksController = BooksController;
 __decorate([
@@ -86,6 +89,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BooksController.prototype, "deleteById", null);
+__decorate([
+    (0, common_1.Post)('/like'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Body)('bookId', new common_1.ParseUUIDPipe())),
+    __param(1, (0, common_1.Body)('userId', new common_1.ParseUUIDPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], BooksController.prototype, "createUserOnBook", null);
 exports.BooksController = BooksController = __decorate([
     (0, common_1.Controller)('books'),
     __metadata("design:paramtypes", [books_service_1.BooksService])

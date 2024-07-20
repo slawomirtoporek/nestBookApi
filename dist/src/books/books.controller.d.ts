@@ -29,4 +29,5 @@ export declare class BooksController {
     deleteById(id: string): Promise<{
         success: boolean;
     }>;
+    createUserOnBook(bookId: string, userId: string): void;
 }

@@ -8,4 +8,7 @@ export declare class UsersController {
         email: string;
         role: import(".prisma/client").$Enums.Role;
     }>;
+    delete(id: string): Promise<{
+        success: boolean;
+    }>;
 }
