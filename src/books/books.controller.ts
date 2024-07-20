@@ -60,4 +60,13 @@ export class BooksController {
     await this.booksService.deleteById(id);
     return { success: true };
   }
+
+  @Post('/like')
+  @UseGuards(JwtAuthGuard)
+  createUserOnBook(
+    @Body('bookId', new ParseUUIDPipe()) bookId: string,
+    @Body('userId', new ParseUUIDPipe()) userId: string,
+  ) {
+    this.booksService.createUserOnBook(bookId, userId);
+  }
 }
