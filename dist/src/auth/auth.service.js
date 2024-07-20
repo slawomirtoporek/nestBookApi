@@ -25,10 +25,12 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("../users/users.service");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt = require("bcryptjs");
+const config_1 = require("@nestjs/config");
 let AuthService = class AuthService {
-    constructor(usersService, jwtService) {
+    constructor(usersService, jwtService, configService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
+        this.configService = configService;
     }
     async register(registrationData) {
         const hashedPassword = await bcrypt.hash(registrationData.password, 10);
@@ -49,8 +51,8 @@ let AuthService = class AuthService {
     async createSession(user) {
         const payload = { email: user.email, sub: user.id };
         const accessToken = this.jwtService.sign(payload, {
-            secret: 'xrwe4543534',
-            expiresIn: '12h',
+            secret: this.configService.get('jwt.secret'),
+            expiresIn: this.configService.get('jwt.expiresIn'),
         });
         return {
             access_token: accessToken,
@@ -61,6 +63,7 @@ exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [users_service_1.UsersService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

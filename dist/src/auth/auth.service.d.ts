@@ -1,10 +1,12 @@
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDTO } from './dtos/register.dto';
+import { ConfigService } from '@nestjs/config';
 export declare class AuthService {
     private usersService;
     private jwtService;
-    constructor(usersService: UsersService, jwtService: JwtService);
+    private configService;
+    constructor(usersService: UsersService, jwtService: JwtService, configService: ConfigService);
     register(registrationData: RegisterDTO): Promise<{
         id: string;
         email: string;
