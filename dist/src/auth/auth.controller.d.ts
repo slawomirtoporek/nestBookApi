@@ -9,4 +9,5 @@ export declare class AuthController {
         role: import(".prisma/client").$Enums.Role;
     }>;
     login(req: any, res: any): Promise<void>;
+    logout(res: any): Promise<void>;
 }

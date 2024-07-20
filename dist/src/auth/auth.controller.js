@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const register_dto_1 = require("./dtos/register.dto");
 const local_auth_guard_1 = require("./local-auth.guard");
+const jwt_auth_guard_1 = require("./jwt-auth.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -27,6 +28,12 @@ let AuthController = class AuthController {
     async login(req, res) {
         const tokens = await this.authService.createSession(req.user);
         res.cookie('auth', tokens, { httpOnly: true });
+        res.send({
+            message: 'success',
+        });
+    }
+    async logout(res) {
+        res.clearCookie('auth', { httpOnly: true });
         res.send({
             message: 'success',
         });
@@ -49,6 +56,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Delete)('/logout'),
+    __param(0, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "logout", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
